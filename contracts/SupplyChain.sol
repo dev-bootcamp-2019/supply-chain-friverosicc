@@ -120,7 +120,12 @@ contract SupplyChain {
   is the buyer. Change the state of the item to received. Remember to call the event associated with this function!*/
   function receiveItem(uint sku)
     public
-  {}
+    shipped(sku)
+    verifyCaller(items[sku].buyer)
+  {
+    items[sku].state = State.Received;
+    emit Received(sku);
+  }
 
   /* We have these functions completed so we can run tests, just ignore it :) */
   function fetchItem(uint _sku) public view returns (string memory name, uint sku, uint price, uint state, address seller, address buyer) {
